@@ -10,13 +10,14 @@ using namespace std;
 void AssugnRoles(string roles1[], int sumSentries1) {
 
     srand(time(0)); //seed the random num generator
+    
     for (int i =0; i < numSentries1; ++i) {
-    int random = rand() % 2;
-    if (random == 0) {
-       roles1[i] = "truthful";
-    } else {
-       roles1[i] = "lying";
-    }
+        int random = rand() % 2;
+        if (random == 0) {
+            roles1[i] = "truthful";
+        } else {
+            roles1[i] = "lying";
+        }
     }
 }
 
