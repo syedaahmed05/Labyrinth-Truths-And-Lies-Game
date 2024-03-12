@@ -6,7 +6,6 @@
 
 using namespace std;
 
-//Function to randomly assign roles to sentries
 void AssugnRoles(string roles1[], int sumSentries1) {
 
     srand(time(0)); //seed the random num generator
