@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void AssugnRoles(string roles1[], int sumSentries1) {
+void AssignRoles(string roles1[], int sumSentries1) {
 
     srand(time(0)); //seed the random num generator
     
