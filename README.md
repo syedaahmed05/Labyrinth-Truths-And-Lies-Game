@@ -1,51 +1,70 @@
-# Quest-2
 #include <iostream>
+#include <algorithm> //for transform
 #include <string>
-#include <cstdlib> // for rand() and srand()
-#include <ctime>   // for time()
+#include <cctype> // for tolower()
 
 using namespace std;
 
-void AssignRoles(string roles1[], int sumSentries1) {
-
-    srand(time(0)); //seed the random num generator
-    
-    for (int i =0; i < numSentries1; ++i) {
-    
-        int random = rand() % 2;
-        if (random == 0) {
-            roles1[i] = "truthful";
-        } else {
-            roles1[i] = "lying";
-        }
-    }
-}
-
 int main() {
-
+    const int numSentinels = 5; // Number of sentinels in the labyrinth
+    bool sentinelRoles[numSentinels]; // Array to store roles (true for truthful, false for liar)
+    number_of_questions_asked = 0; //counts how many questions user asked.
+    number_right = 0; //counts how many questions the user got right. (User needs 3 right answers to win).
+    
     cout << "Welcome to the Truth or Lie Labyrinth Game!" << endl;
     cout << "Find your way by asking the sentinels questions. Some always tell the truth, others always lie." << endl;
     cout << "You need to correclty identify truth or lie from 3 sentinels to win." << endl;
-    
-    const int numSentinels = 5; // Number of sentinels in the labyrinth
-    bool sentinelRoles[numSentinels]; // Array to store roles (true for truthful, false for liar)
 
-    // Seed the random number generator
-    srand(time(nullptr));
-
-    // Randomly assign roles to sentinels
+    // Initialize sentinel roles (you can do this randomly as before)
     for (int i = 0; i < numSentinels; ++i) {
-        // Generate a random number (0 or 1)
-        // If it's 0, the sentinel is a liar; if it's 1, the sentinel is a truth teller
-        sentinelRoles[i] = rand() % 2 == 0; 
+        // For demonstration purposes, let's assume alternate sentinels are truthful
+        sentinelRoles[i] = (i % 2 == 0);
     }
 
-    // Display roles of sentinels
-    cout << "Sentinel Roles:" << endl;
-    for (int i = 0; i < numSentinels; ++i) {
-        cout << "Sentinel " << i + 1 << ": " << (sentinelRoles[i] ? "truth teller" : "liar") << endl;
+    // Main game loop
+    while (true) {
+        cout << "There are paths with sentinels. Choose a sentinel to question (1-" << numSentinels << "): ";
+        int sentinel_choice;
+        cin >> sentinel_choice;
+
+        if (sentinel_choice >= 1 && sentinel_choice <= numSentinels) {
+            cin.ignore(); // Ignore newline character from previous input
+            
+            string question;
+            cout << "You ask the sentinel: ";
+            getline(cin, question);
+
+            cout << "The sentinel responds: ";
+
+            // Convert the question to lowercase for case-insensitive comparison
+            transform(question.begin(), question.end(), question.begin(), ::tolower);
+
+            // Respond based on the sentinel's role and the question asked
+            if (sentinelRoles[sentinel_choice - 1]) { // Truth teller
+                // Example response logic: Assume the sentinel always tells the truth
+                cout << "Ford";
+                
+                
+            } else { // Liar
+                // Example response logic: Assume the sentinel always lies
+                cout << "Toyota";
+            }
+
+            cout << "\nDo you think the sentinel is telling the truth? (Yes/No): ";
+            string answer;
+            cin >> answer;
+            transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
+
+            // Check if the player's detection of the sentinel's truthfulness is correct
+            if ((sentinelRoles[sentinel_choice - 1] && answer == "yes") || (!sentinelRoles[sentinel_choice - 1] && answer == "no")) {
+                cout << "Wrong detection! Try again." << endl;
+            } else {
+                cout << "You detected the truth/lies correctly!" << endl;
+            }
+        } else {
+            cout << "Invalid sentinel choice. Choose a sentinel from 1 to " << numSentinels << "." << endl;
+        }
     }
 
     return 0;
 }
-
