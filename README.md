@@ -8,8 +8,8 @@ using namespace std;
 int main() {
     const int numSentinels = 5; // Number of sentinels in the labyrinth
     bool sentinelRoles[numSentinels]; // Array to store roles (true for truthful, false for liar)
-    number_of_questions_asked = 0; //counts how many questions user asked.
-    number_right = 0; //counts how many questions the user got right. (User needs 3 right answers to win).
+    int number_of_questions_asked = 0; //counts how many questions user asked.
+    int number_right = 0; //counts how many questions the user got right. (User needs 3 right answers to win).
     
     cout << "Welcome to the Truth or Lie Labyrinth Game!" << endl;
     cout << "Find your way by asking the sentinels questions. Some always tell the truth, others always lie." << endl;
