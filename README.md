@@ -108,27 +108,30 @@ int main() {
                 }
             }
 
-            cout << "Do you think the sentinel is telling the truth? (Yes/No): ";
-            string answer;
-            cin >> answer;
-            transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
-            
-            if (answer == "yes" || answer == "no") {
-                // Check if the player's detection of the sentinel's truthfulness is correct
-                if ((sentinelRoles[sentinel_choice - 1] && answer == "yes") || (!sentinelRoles[sentinel_choice - 1] && answer == "no")) {
-                    cout << "You detected the truth/lies correctly!" << endl;
-                    num_questions_right += 1;
-                    answers_to_win -= 1;
-                    cout << "Only " << answers_to_win << " more to go!" << endl;
+            while (true) {
+                cout << "Do you think the sentinel is telling the truth? (Yes/No): ";
+                string answer;
+                cin >> answer;
+                transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
+
+                if (answer == "yes" || answer == "no") {
+                    // Check if the player's detection of the sentinel's truthfulness is correct
+                    if ((sentinelRoles[sentinel_choice - 1] && answer == "yes") || (!sentinelRoles[sentinel_choice - 1] && answer == "no")) {
+                        cout << "You detected the truth/lies correctly!" << endl;
+                        num_questions_right += 1;
+                        answers_to_win -= 1;
+                        cout << "Only " << answers_to_win << " more to go!" << endl;
+                    } else {
+                        cout << "Wrong detection! Try again." << endl;
+                        num_questions_wrong += 1;
+                        cout << "You still have " << answers_to_win << " more to go!" << endl;
+                    }
+                    questions_asked += 1;
+                    answers_recieved += 1;
+                    break; // Exit the loop if a valid answer is provided
                 } else {
-                    cout << "Wrong detection! Try again." << endl;
-                    num_questions_wrong += 1;
-                    cout << "You still have " << answers_to_win << " more to go!" << endl;
+                    cout << "Invalid answer, type in 'yes' or 'no.'" << endl;
                 }
-                questions_asked += 1;
-                answers_recieved += 1;
-            } else {
-                cout << "Invalid answer, type in 'yes' or 'no.'" << endl;
             }
         } else {
             cout << "Invalid sentinel choice. Choose a sentinel from 1 to " << numSentinels << "." << endl;
